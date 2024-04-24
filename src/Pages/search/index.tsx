@@ -5,6 +5,7 @@ import Upcoming from "../../components/shared/upcoming";
 import { instance } from "../../utils";
 import { Movie } from "../../types";
 import { useMoveData } from "../../hooks";
+import SearchCard from "../../components/Ui/SearchCard";
 
 const Search = () => {
   const { id } = useParams();
@@ -22,26 +23,11 @@ const Search = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container gap-5">
         {search?.map((e: Movie) => (
           <Link key={e.id} to={`/detel/${e.id}`}>
-            <Card
-              className="bg-blue-900 text-white border-e mx-[10px] h-[380px]"
-              hoverable
-              style={{ border: "none" }}
-              cover={
-                <img
-                  width="100%"
-                  className="h-[200px] object-cover"
-                  alt="example"
-                  src={`https://image.tmdb.org/t/p/original${e?.poster_path}`}
-                />
-              }
-            >
-              <div>
-                <h2 className="text-2xl mb-2">{e?.original_title}</h2>
-                <p className="text-1xl text-gray-300">
-                  {e?.overview?.slice(0, 100)}...
-                </p>
-              </div>
-            </Card>
+            <SearchCard
+              image={e.poster_path}
+              overview={e.overview}
+              title={e.title}
+            />
           </Link>
         ))}
       </div>

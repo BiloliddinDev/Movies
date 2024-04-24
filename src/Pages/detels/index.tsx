@@ -14,7 +14,7 @@ const Detel = () => {
     isError,
     error,
   }: MovieListResponse | any = useGetData({
-    keys: ["detel"],
+    keys: ["detel ", `${id}`],
     url: `movie/${id}`,
   });
 
