@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
 import { useGetData, useMoveData } from "../../hooks";
 import { Link, useParams } from "react-router-dom";
-import { Button, Collapse, message } from "antd";
+import { Button, Collapse, message, Skeleton } from "antd";
 import { MovieListResponse } from "../../types";
 
 const { Panel } = Collapse;
@@ -9,7 +10,7 @@ const Detel = () => {
   const { id } = useParams();
   const {
     data: Detelpage,
-    isLoading,
+    isLoading: detailLoading,
     isError,
     error,
   }: MovieListResponse | any = useGetData({
@@ -17,54 +18,54 @@ const Detel = () => {
     url: `movie/${id}`,
   });
 
-  if (isError) {
-    message.error(`${error}`);
-  }
-
-  const { data: Comment }: any = useMoveData({
+  const { data: Comment, isLoading: commentLoading }: any = useMoveData({
     keys: ["koment"],
     url: `movie/${id}/reviews`,
   });
 
-  console.log(Detelpage);
+  if (isError) {
+    message.error(`${error}`);
+  }
 
   return (
     <div className="">
       <div className="flex flex-col items-center">
-        <img
-          className="w-full h-[500px] object-contain"
-          src={`https://image.tmdb.org/t/p/w500${
-            Detelpage?.poster_path
-              ? Detelpage?.poster_path
-              : Detelpage?.backdrop_path
-          }`}
-          alt=""
-        />
-        <div className="container text-center">
-          <h1 className="text-6xl my-4 text-white">
-            {Detelpage?.original_title}
-          </h1>
-          <p className="text-gray-600 text-2xl">{Detelpage?.overview}</p>
-          <p className="mt-4 text-2xl text-white mb-6">
-            {Detelpage?.release_date}
-          </p>
+        <Skeleton loading={detailLoading} active>
+          <img
+            className="w-full h-[500px] object-contain"
+            src={`https://image.tmdb.org/t/p/w500${
+              Detelpage?.poster_path
+                ? Detelpage?.poster_path
+                : Detelpage?.backdrop_path
+            }`}
+            alt=""
+          />
+          <div className="container text-center">
+            <h1 className="text-6xl my-4 text-white">
+              {Detelpage?.original_title}
+            </h1>
+            <p className="text-gray-600 text-2xl">{Detelpage?.overview}</p>
+            <p className="mt-4 text-2xl text-white mb-6">
+              {Detelpage?.release_date}
+            </p>
 
-          <div className="my-4">
-            {Detelpage?.genres?.map((genre: any) => (
-              <span
-                key={genre?.id}
-                className="inline-block bg-gray-200 rounded-full px-4 py-2 text-lg font-semibold text-gray-700 mr-2 mb-2"
-              >
-                {genre.name}
-              </span>
-            ))}
+            <div className="my-4">
+              {Detelpage?.genres?.map((genre: any) => (
+                <span
+                  key={genre?.id}
+                  className="inline-block bg-gray-200 rounded-full px-4 py-2 text-lg font-semibold text-gray-700 mr-2 mb-2"
+                >
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+            <Link to={"/"}>
+              <Button className="text-white" size="large">
+                Home
+              </Button>
+            </Link>
           </div>
-          <Link to={"/"}>
-            <Button className="text-white" size="large">
-              Home
-            </Button>
-          </Link>
-        </div>
+        </Skeleton>
       </div>
       <div className="container">
         <h2 className="text-3xl my-6 text-center text-white">
@@ -90,6 +91,7 @@ const Detel = () => {
       </div>
       <div className="container">
         <h1 className="mt-4 text-center text-4xl text-white mb-5">Comments</h1>
+
         {Comment?.map((review: any) => (
           <div key={review.id} className="bg-blue-950 rounded shadow-md mb-4">
             <Collapse className="border-none">
@@ -118,6 +120,9 @@ const Detel = () => {
           </div>
         ))}
       </div>
+      {Comment?.length === 0 && (
+        <h1 className="text-white text-center text-3xl">No comments found</h1>
+      )}
     </div>
   );
 };
