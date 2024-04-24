@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useGetData, useMoveData } from "../../hooks";
 import { Link, useParams } from "react-router-dom";
 import { Button, Collapse, message, Skeleton } from "antd";
@@ -6,7 +6,7 @@ import { MovieListResponse } from "../../types";
 
 const { Panel } = Collapse;
 
-const Detel = () => {
+const Detel: FC = () => {
   const { id } = useParams();
   const {
     data: Detelpage,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, message } from "antd";
 import Upcoming from "../../components/shared/upcoming";
@@ -7,7 +7,7 @@ import { Movie } from "../../types";
 import { useMoveData } from "../../hooks";
 import SearchCard from "../../components/Ui/SearchCard";
 
-const Search = () => {
+const Search: FC = () => {
   const { id } = useParams();
 
   const { data: search, isLoading }: any = useMoveData({
