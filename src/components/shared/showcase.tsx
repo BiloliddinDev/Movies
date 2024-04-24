@@ -1,10 +1,10 @@
 import { Carousel } from "antd";
-import React from "react";
+import React, { FC } from "react";
 import { useMoveData } from "../../hooks";
 import { motion } from "framer-motion";
 import { Movie, MovieListResponse } from "../../types";
 
-const Showcase = () => {
+const Showcase: FC = () => {
   const { data: carouselData }: MovieListResponse | any = useMoveData({
     keys: ["upcoming"],
     url: "movie/upcoming",

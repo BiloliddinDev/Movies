@@ -1,9 +1,9 @@
 import { Card } from "antd";
 import Meta from "antd/es/card/Meta";
-import React from "react";
+import React, { FC } from "react";
 import { cardInterface } from "../../types";
 
-const CaruselCard = ({ title, image, overview }: cardInterface) => {
+const CaruselCard: FC<cardInterface> = ({ title, image, overview }) => {
   return (
     <Card
       className="bg-blue-900 text-white border-e mx-4 my-4"

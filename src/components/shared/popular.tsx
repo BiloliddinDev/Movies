@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 import Carousel from "./carusel";
 import { Movie } from "../../types";
 import CaruselCard from "../Ui/CaruselCard";
+import { FC } from "react";
 
-const Popular = () => {
+const Popular: FC = () => {
   const { data: Movies, isLoading }: any = useMoveData({
     keys: ["top_rated"],
     url: "movie/now_playing?language=en-US&page=2",

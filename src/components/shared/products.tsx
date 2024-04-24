@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Card, Skeleton } from "antd";
 import { useMoveData } from "../../hooks";
 import { Link } from "react-router-dom";
@@ -8,7 +8,7 @@ import CaruselCard from "../Ui/CaruselCard";
 
 const { Meta } = Card;
 
-const Products = () => {
+const Products: FC = () => {
   const { data: Movies, isLoading }: any = useMoveData({
     keys: ["now_playing"],
     url: "movie/now_playing",

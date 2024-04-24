@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space } from "antd";
 import type { SearchProps } from "antd/es/input/Search";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 
-const Navbar = () => {
+const Navbar: FC = () => {
   const navigate = useNavigate();
   const { searchvalue, searchstate } = useSearch();
 

@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 import Carousel from "./carusel";
 import { Movie, MovieListResponse } from "../../types";
 import CaruselCard from "../Ui/CaruselCard";
+import { FC } from "react";
 
-const Upcoming = () => {
+const Upcoming: FC = () => {
   const { data: Movies, isLoading }: MovieListResponse | any = useMoveData({
     keys: ["Upcoming"],
     url: "movie/upcoming?language=en-US&page=2",
