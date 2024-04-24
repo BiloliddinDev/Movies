@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useMoveData } from "../../hooks";
 import { Link, useParams } from "react-router-dom";
 import { Card, message } from "antd";
 import Upcoming from "../../components/shared/upcoming";
 import { instance } from "../../utils";
 import { Movie } from "../../types";
+import { useMoveData } from "../../hooks";
 
 const Search = () => {
   const { id } = useParams();
-  const [search, setSearch] = useState([]);
 
-  useEffect(() => {
-    instance
-      .get(`search/movie?query=${id}`)
-      .then((res) => setSearch(res?.data?.results))
-      .catch((error) => {
-        setSearch([]);
-        message.error("Malumot topilmadi");
-      });
-  }, [id]);
+  const { data: search, isLoading }: any = useMoveData({
+    keys: ["search", `${id}`],
+    url: `search/movie?query=${id}`,
+  });
 
   return (
     <div>
@@ -27,7 +21,7 @@ const Search = () => {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container gap-5">
         {search?.map((e: Movie) => (
-          <Link key={e.id} to={`/detail/${e.id}`}>
+          <Link key={e.id} to={`/detel/${e.id}`}>
             <Card
               className="bg-blue-900 text-white border-e mx-[10px] h-[380px]"
               hoverable

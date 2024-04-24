@@ -21,7 +21,7 @@ const Products = () => {
         ) : (
           <Carousel
             title="Playing"
-            data={Movies.map((e: Movie) => (
+            data={Movies?.map((e: Movie) => (
               <Link to={`/detel/${e.id}`} key={e.id}>
                 <Card
                   className="bg-blue-900 text-white border-e mx-4 my-4"

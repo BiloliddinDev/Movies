@@ -1,27 +1,39 @@
 import { useGetData, useMoveData } from "../../hooks";
 import { Link, useParams } from "react-router-dom";
-import { Button, Collapse } from "antd";
+import { Button, Collapse, message } from "antd";
+import { MovieListResponse } from "../../types";
 
 const { Panel } = Collapse;
 
 const Detel = () => {
   const { id } = useParams();
-  const { data: Detelpage, isLoading }: any = useGetData({
+  const {
+    data: Detelpage,
+    isLoading,
+    isError,
+    error,
+  }: MovieListResponse | any = useGetData({
     keys: ["detel"],
     url: `movie/${id}`,
   });
+
+  if (isError) {
+    message.error(`${error}`);
+  }
 
   const { data: Comment }: any = useMoveData({
     keys: ["koment"],
     url: `movie/${id}/reviews`,
   });
 
+  console.log(Detelpage);
+
   return (
     <div className="">
       <div className="flex flex-col items-center">
         <img
-          className="w-full h-[500px] object-cover"
-          src={`https://image.tmdb.org/t/p/original${
+          className="w-full h-[500px] object-contain"
+          src={`https://image.tmdb.org/t/p/w500${
             Detelpage?.poster_path
               ? Detelpage?.poster_path
               : Detelpage?.backdrop_path
@@ -68,9 +80,9 @@ const Detel = () => {
                 {company?.name}
               </h3>
               <img
-                className="h-[200px] w-[200px] object-contain"
+                className="h-[200px] w-[200px] object-contain bg-slate-900"
                 src={`https://image.tmdb.org/t/p/original${company?.logo_path}`}
-                alt=""
+                alt={company?.name}
               />
             </div>
           ))}
@@ -79,7 +91,7 @@ const Detel = () => {
       <div className="container">
         <h1 className="mt-4 text-center text-4xl text-white mb-5">Comments</h1>
         {Comment?.map((review: any) => (
-          <div className="bg-blue-950 rounded shadow-md mb-4">
+          <div key={review.id} className="bg-blue-950 rounded shadow-md mb-4">
             <Collapse className="border-none">
               <Panel
                 header={
