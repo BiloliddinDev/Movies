@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+body {
+  background-color: rgb(6, 6, 51);
+}
+
+.ant-btn {
+  background-color: rgb(10, 10, 64);
+}
+
+.ant-btn:hover {
+  background-color: rgb(9, 9, 56) !important;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
